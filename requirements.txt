@@ -1,0 +1,10 @@
+olefile
+pdftools
+pypdns
+pydeep
+virustotal-api
+yara
+pefile
+scrapy
+jbxapi
+pypssl
