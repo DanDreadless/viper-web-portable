@@ -5,6 +5,8 @@ Original Viper-Framework and Viper-Web by brotherder
 
 ## Dependancies
 
+Django version 3.0 (any higher is not supported)
+
 Python version <= 3.9 (Python 3.10 not supported by the latest version of django)
 
 See requirements.txt for python modules and add any extras that you want installing.
