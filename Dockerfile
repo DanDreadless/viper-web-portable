@@ -16,7 +16,7 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get upgrade -y \
     && apt install -y git build-essential \
-    python3-pip exiftool \
+    python3-pip exiftool net-tools\
     clamav-daemon tor libdpkg-perl libssl-dev \
     swig libffi-dev ssdeep libfuzzy-dev unrar-free \
     p7zip-full apache2 libusb-1.0-0 libusb-1.0-0-dev \
@@ -27,7 +27,7 @@ COPY requirements.txt requirements.txt
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && pip3 install -r requirements.txt
 
-EXPOSE 8080
+# EXPOSE 8080
 
 COPY . .
 
@@ -59,7 +59,7 @@ RUN git clone https://github.com/DanDreadless/viper-web.git
 
 USER root
 WORKDIR /home/viper/viper-web
-
+ADD ./site-config.conf /etc/apache2/sites-available/000-default.conf
 
 RUN pip3 install MarkupSafe --upgrade \
     && pip3 install . \
