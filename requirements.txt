@@ -1,4 +1,5 @@
 olefile
+oletools
 pdftools
 pypdns
 pydeep
@@ -8,3 +9,4 @@ pefile
 scrapy
 jbxapi
 pypssl
+bs4
