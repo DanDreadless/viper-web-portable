@@ -3,9 +3,17 @@
 Original Viper-Framework and Viper-Web by brotherder
 <https://github.com/viper-framework>
 
-I have dockerised the framework and viper-web.
+## Dependancies
+
+Python version <= 3.9 (Python 3.10 not supported by the latest version of django)
+
+See requirements.txt for python modules and add any extras that you want installing.
 
 ## Config
+
+Dockerfile - This is the build information
+
+Docker-compose.yaml - Settings for services.
 
 viper.conf - This is where you need to configure things such as admin user and pass.
 
