@@ -9,6 +9,13 @@ services:
       appnet:
         ipv4_address: 10.10.0.2
 
+  apache:
+    image: httpd:latest
+    ports:
+      - '8081:80'
+    volumes:
+      - './cyberchef_v9.46.0:/usr/local/apache2/htdocs'
+
 networks:
   appnet:
     driver: bridge

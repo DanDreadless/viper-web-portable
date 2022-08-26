@@ -24,11 +24,10 @@ RUN apt-get update && apt-get upgrade -y \
 
 COPY requirements.txt requirements.txt
 COPY viper.conf viper.conf
+COPY reload.sh reload.sh
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && pip3 install -r requirements.txt
-
-# EXPOSE 8080
 
 COPY . .
 
@@ -47,6 +46,16 @@ RUN git clone https://github.com/viper-framework/viper.git \
     && mkdir /home/viper/workdir
 
 USER root
+
+# RUN mkdir /build \
+#     && mkdir /build/cybchef
+
+# WORKDIR /build/cybchef
+
+# RUN git clone https://github.com/DanDreadless/cyberchef_v9.46.0.git \
+#     && ln -s cyberchef_v9.46.0 latest \
+#     && chmod 777 latest
+
 WORKDIR /home/viper/viper
 
 RUN sed -i 's/==/>=/g' setup.py \
@@ -59,21 +68,18 @@ WORKDIR /home/viper
 RUN git clone https://github.com/DanDreadless/viper-web.git
 
 USER root
+WORKDIR /
+RUN chmod +x reload.sh
 WORKDIR /home/viper/viper-web
-ADD ./site-config.conf /etc/apache2/sites-available/000-default.conf
+#ADD ./site-config.conf /etc/apache2/sites-available/000-default.conf
 
 RUN pip3 install MarkupSafe --upgrade \
     && pip3 install . \
     && pip3 install --force pymips[fileobjects] \
     && export PATH=$HOME/.local/bin:$PATH \
-    #&& pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U \
     && sed -i 's/127.0.0.1/0.0.0.0/g' viper-web \
     && chmod a+xr viper-web
 
-#Comment out the below once modules have updated
-#CMD ["viper"]
-#RUN echo "update-modules"
-#Un-comment to run viper-web
 USER viper
 WORKDIR /home/viper/workdir
 CMD ["../viper-web/viper-web"]
